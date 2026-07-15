@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller Gratuito — VM Gestión Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --salmon:      #E8927A;
+  --salmon-dark: #C9714F;
+  --salmon-pale: #FDF0EC;
+  --navy:        #1C3557;
+  --cream:       #FAFAF8;
+  --dark:        #1A1A1A;
+  --text:        #3D3D3D;
+  --text-light:  #888;
+  --white:       #ffffff;
+  --radius:      14px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(160deg,#FDF6F3 0%,#FAFAF8 55%,#EEF3F8 100%);
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:64px 24px 72px;text-align:center;position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:420px;height:420px;background:radial-gradient(circle,rgba(232,146,122,0.14) 0%,transparent 68%);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-60px;width:320px;height:320px;background:radial-gradient(circle,rgba(28,53,87,0.06) 0%,transparent 70%);pointer-events:none;}
+
+/* Logo PNG real */
+.logo{margin-bottom:28px;animation:fadeDown .65s ease both;}
+.logo img{width:80px;height:auto;}
+
+/* Badge */
+.badge-fecha{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(232,146,122,0.12);border:1px solid rgba(232,146,122,0.3);
+  color:var(--salmon-dark);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  padding:8px 20px;border-radius:100px;margin-bottom:28px;
+  animation:fadeDown .65s .1s ease both;
+}
+
+/* Título — 3 renglones forzados, salmón más oscuro para legibilidad */
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(34px,7.5vw,64px);
+  font-weight:900;color:var(--dark);line-height:1.1;
+  max-width:680px;margin-bottom:20px;
+  animation:fadeDown .65s .15s ease both;
+}
+.hero h1 em{
+  font-style:italic;
+  color:#C9714F; /* salmón más oscuro para que se lea bien en crema */
+}
+
+.hero-sub{
+  font-size:17px;font-weight:300;color:var(--text-light);
+  max-width:480px;line-height:1.72;margin-bottom:44px;
+  animation:fadeDown .65s .2s ease both;
+}
+.hero-sub strong{color:var(--text);font-weight:600;}
+
+/* Caja fecha */
+.fecha-box{
+  display:inline-flex;align-items:center;gap:14px;
+  background:var(--white);border:1px solid rgba(0,0,0,0.07);
+  border-radius:var(--radius);padding:16px 28px;margin-bottom:40px;
+  box-shadow:0 2px 20px rgba(0,0,0,0.05);
+  animation:fadeDown .65s .25s ease both;
+}
+.fecha-icon{font-size:24px;}
+.fecha-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);font-weight:600;margin-bottom:3px;}
+.fecha-valor{font-family:'Playfair Display',serif;font-size:18px;color:var(--dark);font-weight:700;}
+.fecha-valor span{color:var(--salmon-dark);}
+
+.hero-cta{display:flex;flex-direction:column;align-items:center;gap:10px;animation:fadeUp .65s .3s ease both;}
+.btn-main{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--salmon);color:var(--white);
+  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;
+  padding:17px 40px;border-radius:100px;border:none;cursor:pointer;
+  text-decoration:none;width:100%;max-width:400px;
+  box-shadow:0 6px 28px rgba(232,146,122,0.38);
+  transition:transform .18s,box-shadow .18s,background .18s;
+  animation:pulse-s 2.4s ease-in-out infinite;
+}
+.btn-main:hover{background:var(--salmon-dark);transform:translateY(-2px);box-shadow:0 10px 36px rgba(232,146,122,0.5);}
+@keyframes pulse-s{0%,100%{box-shadow:0 6px 28px rgba(232,146,122,0.38);}50%{box-shadow:0 10px 40px rgba(232,146,122,0.60);}}
+.btn-nota{font-size:12px;color:var(--text-light);}
+
+/* ── APRENDE ── */
+.aprende{padding:80px 24px;max-width:720px;margin:0 auto;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--salmon);margin-bottom:12px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(26px,4.5vw,38px);font-weight:900;color:var(--dark);line-height:1.2;margin-bottom:40px;}
+.items-grid{display:grid;gap:12px;}
+.item-card{
+  display:flex;align-items:flex-start;gap:14px;
+  background:var(--white);border-radius:var(--radius);
+  padding:20px 22px;border-left:3px solid var(--salmon);
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);transition:transform .18s;
+}
+.item-card:hover{transform:translateX(4px);}
+.item-check{width:26px;height:26px;background:var(--salmon-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;color:var(--salmon);}
+.item-check svg{width:13px;height:13px;}
+.item-card h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.item-card p{font-size:13px;font-weight:300;color:var(--text-light);line-height:1.6;}
+
+/* ── MÓDULOS ── */
+.modulos{background:var(--navy);padding:72px 24px;}
+.modulos-inner{max-width:720px;margin:0 auto;}
+.modulos-inner .eyebrow{color:rgba(232,146,122,0.85);}
+.modulos-inner .sec-title{color:var(--white);}
+.modulos-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:520px){.modulos-grid{grid-template-columns:1fr;}}
+.modulo-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.09);border-radius:var(--radius);padding:22px;transition:background .18s;}
+.modulo-card:hover{background:rgba(255,255,255,0.10);}
+.modulo-num{font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(232,146,122,0.8);text-transform:uppercase;margin-bottom:8px;}
+.modulo-card h4{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--white);margin-bottom:5px;}
+.modulo-card p{font-size:13px;font-weight:300;color:rgba(255,255,255,0.5);line-height:1.6;}
+
+/* CTA intermedio */
+.cta-mid{padding:60px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.cta-mid p{font-size:14px;color:var(--text-light);max-width:340px;}
+
+/* ── VANESA ── */
+.vanesa-section{padding:72px 24px;max-width:720px;margin:0 auto;}
+.vanesa-card{background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.07);}
+.vanesa-top{
+  background:var(--salmon-pale);padding:32px 28px;
+  display:flex;align-items:center;gap:22px;
+}
+/* Foto real de Vanesa */
+.vanesa-foto{
+  width:100px;height:100px;border-radius:50%;
+  object-fit:cover;object-position:center top;
+  border:3px solid var(--white);
+  box-shadow:0 4px 16px rgba(232,146,122,0.22);
+  flex-shrink:0;
+}
+.vanesa-top h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--navy);margin-bottom:4px;}
+.vanesa-top .cargo{font-size:12px;color:var(--salmon-dark);font-weight:600;}
+.vanesa-body{padding:28px 28px;}
+.vanesa-body p{font-size:14px;line-height:1.78;color:var(--text);margin-bottom:14px;}
+.vanesa-body p:last-child{margin-bottom:0;}
+.stats-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:22px;padding-top:22px;border-top:1px solid #F0EDE9;}
+.stat{flex:1;min-width:65px;text-align:center;}
+.stat-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--salmon);line-height:1;margin-bottom:3px;}
+.stat-label{font-size:11px;color:#aaa;font-weight:500;line-height:1.4;}
+
+/* ── CTA FINAL ── */
+.cta-final{
+  background:linear-gradient(160deg,#1C3557 0%,#2A4A73 100%);
+  padding:80px 24px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  position:relative;overflow:hidden;
+}
+.cta-final::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;height:400px;background:radial-gradient(circle,rgba(232,146,122,0.12) 0%,transparent 65%);pointer-events:none;}
+.cta-final h2{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,40px);font-weight:900;color:var(--white);max-width:500px;line-height:1.2;}
+.cta-final h2 em{color:#F2A99A;font-style:italic;}
+.cta-final>p{color:rgba(255,255,255,0.5);font-size:15px;}
+
+/* ── FOOTER ── */
+footer{background:#111;padding:28px 24px;text-align:center;}
+.footer-logo img{width:56px;height:auto;margin-bottom:10px;opacity:0.85;}
+footer p{font-size:11px;color:rgba(255,255,255,0.28);line-height:1.6;}
+
+/* ── MODAL ── */
+.overlay{position:fixed;inset:0;background:rgba(10,20,40,0.68);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .22s;}
+.overlay.active{opacity:1;pointer-events:all;}
+.modal{background:var(--white);border-radius:20px;padding:36px 28px 32px;width:100%;max-width:420px;position:relative;transform:translateY(18px);transition:transform .25s;box-shadow:0 24px 72px rgba(0,0,0,0.20);}
+.overlay.active .modal{transform:translateY(0);}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;cursor:pointer;font-size:20px;color:#bbb;line-height:1;transition:color .15s;}
+.modal-close:hover{color:var(--dark);}
+.modal-logo{text-align:center;margin-bottom:16px;}
+.modal-logo img{width:52px;height:auto;margin:0 auto;}
+.modal h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--navy);text-align:center;line-height:1.25;margin-bottom:6px;}
+.modal-sub{font-size:13px;color:var(--text-light);text-align:center;margin-bottom:24px;line-height:1.6;}
+.form-group{margin-bottom:12px;}
+.form-group label{display:block;font-size:12px;font-weight:600;color:var(--navy);margin-bottom:5px;}
+.form-group input{width:100%;padding:13px 15px;border:1.5px solid #E8E3DC;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--dark);outline:none;transition:border-color .18s;background:#FAFAF8;}
+.form-group input:focus{border-color:var(--salmon);background:var(--white);}
+.form-group input::placeholder{color:#ccc;}
+.btn-form{margin-top:6px;width:100%;display:flex;align-items:center;justify-content:center;background:var(--salmon);color:var(--white);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;padding:15px 24px;border-radius:100px;border:none;cursor:pointer;box-shadow:0 6px 24px rgba(232,146,122,0.38);transition:transform .18s,background .18s;}
+.btn-form:hover{background:var(--salmon-dark);transform:translateY(-2px);}
+.modal-nota{font-size:11px;color:#ccc;text-align:center;margin-top:12px;}
+
+/* ── Animaciones ── */
+@keyframes fadeDown{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+
+  <div class="logo">
+    <img src="LOGO_SALMON.png" alt="VM Gestión Digital">
+  </div>
+
+  <!-- 📅 CAMBIAR ESTA LÍNEA cada webinar -->
+  <div class="badge-fecha">📅 Próximo domingo · 11:00 HS</div>
+
+  <h1>
+    Ordená tu negocio<br>
+    y <em>aumentá tu<br>
+    rentabilidad</em> en 30 días.
+  </h1>
+
+  <p class="hero-sub">
+    Un <strong>Taller Gratuito de 2 horas</strong> para conocer el sistema probado
+    de orden en 3 pasos y enfocarte en lo que importa: <strong>hacer crecer tu negocio.</strong>
+  </p>
+
+  <div class="fecha-box">
+    <div class="fecha-icon">📅</div>
+    <div>
+      <div class="fecha-label">Próxima fecha</div>
+      <!-- ✏️ CAMBIAR SOLO ESTA LÍNEA cada semana -->
+      <div class="fecha-valor">Domingo 21 de Julio · <span>11:00 HS</span></div>
+    </div>
+  </div>
+
+  <div class="hero-cta">
+    <button class="btn-main" onclick="abrirModal()">Quiero anotarme al Taller →</button>
+    <span class="btn-nota">✔ Gratis · Sin tarjeta · Online</span>
+  </div>
+
+</section>
+
+<!-- ══ QUÉ VAS A APRENDER ══ -->
+<section class="aprende">
+  <p class="eyebrow reveal">Lo que vas a aprender</p>
+  <h2 class="sec-title reveal">El mapa completo de orden integral para tu negocio</h2>
+  <div class="items-grid">
+    <div class="item-card reveal">
+      <div class="item-check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,8 6,12 14,4"/></svg></div>
+      <div><h3>Entendé cómo está hoy tu negocio</h3><p>Diagnóstico honesto: qué está funcionando y qué te está frenando realmente.</p></div>
+    </div>
+    <div class="item-card reveal">
+      <div class="item-check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,8 6,12 14,4"/></svg></div>
+      <div><h3>Sabé por dónde empezar y cómo avanzar</h3><p>Un plan de acción simple y ordenado para dejar de improvisar.</p></div>
+    </div>
+    <div class="item-card reveal">
+      <div class="item-check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,8 6,12 14,4"/></svg></div>
+      <div><h3>Transformá ideas sueltas en objetivos claros</h3><p>Alineados a lo que querés lograr, medibles y accionables desde el día uno.</p></div>
+    </div>
+    <div class="item-card reveal">
+      <div class="item-check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,8 6,12 14,4"/></svg></div>
+      <div><h3>Aprendé qué medir y cómo ajustar</h3><p>Tomá decisiones con datos y dejá de adivinar qué está pasando.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MÓDULOS ══ -->
+<section class="modulos">
+  <div class="modulos-inner">
+    <p class="eyebrow reveal">Contenido del taller</p>
+    <h2 class="sec-title reveal">Temas que vas a aprender</h2>
+    <div class="modulos-grid">
+      <div class="modulo-card reveal"><div class="modulo-num">Módulo 1</div><h4>Situación Actual</h4><p>Diagnóstico honesto y prioridades reales de tu negocio hoy.</p></div>
+      <div class="modulo-card reveal"><div class="modulo-num">Módulo 2</div><h4>Plan de Acción</h4><p>Hábitos, orden y sistema de trabajo para avanzar con claridad.</p></div>
+      <div class="modulo-card reveal"><div class="modulo-num">Módulo 3</div><h4>Objetivos</h4><p>Metas claras, medibles y accionables alineadas a tu visión.</p></div>
+      <div class="modulo-card reveal"><div class="modulo-num">Módulo 4</div><h4>Resultados y Medición</h4><p>Cómo medir, ajustar y dejar de improvisar para siempre.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA intermedio -->
+<div class="cta-mid">
+  <p class="reveal">¿Querés empezar a ordenar tu negocio este domingo?</p>
+  <button class="btn-main reveal" onclick="abrirModal()">Reservá tu lugar gratis →</button>
+</div>
+
+<!-- ══ VANESA ══ -->
+<section class="vanesa-section">
+  <p class="eyebrow reveal">Tu instructora</p>
+  <h2 class="sec-title reveal">¿Quién es Vanesa Muñoz?</h2>
+  <div class="vanesa-card reveal">
+    <div class="vanesa-top">
+      <img src="Foto_Vane_web.jpeg" alt="Vanesa Muñoz" class="vanesa-foto">
+      <div>
+        <h3>Vanesa Muñoz</h3>
+        <p class="cargo">Lic. en Administración · Auditora ISO 9001 · Coach Profesional</p>
+      </div>
+    </div>
+    <div class="vanesa-body">
+      <p>Consultora en gestión y procesos para negocios y empresas familiares. Desde hace más de <strong>15 años</strong> acompaño a dueños que sienten que su negocio podría funcionar mejor, pero están atrapados en el caos del día a día.</p>
+      <p>Trabajo con vos de forma simple y humana: ordenamos, profesionalizamos y construimos claridad real para que <strong>tu negocio funcione sin depender de vos.</strong></p>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num">300+</div><div class="stat-label">Dueños<br>acompañados</div></div>
+        <div class="stat"><div class="stat-num">137</div><div class="stat-label">Negocios<br>ordenados</div></div>
+        <div class="stat"><div class="stat-num">92</div><div class="stat-label">Rubros<br>distintos</div></div>
+        <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Años de<br>experiencia</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA FINAL ══ -->
+<section class="cta-final">
+  <h2 class="reveal">¿Listo para <em>ordenar tu negocio</em><br>este domingo?</h2>
+  <!-- ✏️ CAMBIAR SOLO ESTA LÍNEA cada semana -->
+  <p class="reveal">Domingo 21 de Julio · 11:00 HS · Gratis · Online</p>
+  <button class="btn-main reveal" onclick="abrirModal()">Quiero anotarme al Taller →</button>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <img src="LOGO_SALMON.png" alt="VM Gestión Digital">
+  </div>
+  <p>© 2025 Vanesa Muñoz — VM Gestión Digital · Consultoría para Negocios<br>Todos los derechos reservados.</p>
+</footer>
+
+<!-- ══ MODAL ══ -->
+<div class="overlay" id="overlay" onclick="cerrarFuera(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="cerrarModal()">✕</button>
+    <div class="modal-logo">
+      <img src="LOGO_SALMON.png" alt="VM Gestión Digital">
+    </div>
+    <h2>Reservá tu lugar gratuito en el Taller</h2>
+    <p class="modal-sub">Completá tus datos y te enviamos la confirmación.</p>
+    <!-- 📋 Conectar action="" a Builderall/MailingBoss -->
+    <form id="form-reg" action="" method="POST">
+      <div class="form-group">
+        <label for="nombre">Tu nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej: María" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Tu email</label>
+        <input type="email" id="email" name="email" placeholder="Ej: maria@gmail.com" required>
+      </div>
+      <button type="submit" class="btn-form">Quiero inscribirme →</button>
+      <p class="modal-nota">✔ Sin spam · Podés darte de baja cuando quieras</p>
+    </form>
+  </div>
+</div>
+
+<script>
+function abrirModal(){document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function cerrarModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function cerrarFuera(e){if(e.target===document.getElementById('overlay'))cerrarModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarModal();});
+document.getElementById('form-reg').addEventListener('submit',function(e){
+  e.preventDefault();
+  window.location.href='gracias.html';
+});
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
