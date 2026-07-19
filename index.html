@@ -229,7 +229,7 @@ footer p{font-size:11px;color:rgba(255,255,255,0.28);line-height:1.6;}
   </div>
 
   <div class="hero-cta">
-    <button class="btn-main" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSePI6X7o15mhgznMYyWwyx-ZiSoTAAcA7jTjD4uPDJk3b4BpA/viewform?usp=dialog','_blank')" >Quiero anotarme al Taller →</button>
+    <button class="btn-main" onclick="abrirModal()" >Quiero anotarme al Taller →</button>
     <span class="btn-nota">✔ Gratis · Sin tarjeta · Online</span>
   </div>
 
@@ -276,7 +276,7 @@ footer p{font-size:11px;color:rgba(255,255,255,0.28);line-height:1.6;}
 <!-- CTA intermedio -->
 <div class="cta-mid">
   <p class="reveal">¿Querés empezar a ordenar tu negocio este domingo?</p>
-  <button class="btn-main reveal" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSePI6X7o15mhgznMYyWwyx-ZiSoTAAcA7jTjD4uPDJk3b4BpA/viewform?usp=dialog','_blank')" >Reservá tu lugar gratis →</button>
+  <button class="btn-main reveal" onclick="abrirModal()" >Reservá tu lugar gratis →</button>
 </div>
 
 <!-- ══ VANESA ══ -->
@@ -310,7 +310,7 @@ footer p{font-size:11px;color:rgba(255,255,255,0.28);line-height:1.6;}
   <h2 class="reveal">¿Listo para <em>ordenar tu negocio</em><br>este domingo?</h2>
   <!-- ✏️ CAMBIAR SOLO ESTA LÍNEA cada semana -->
   <p class="reveal">Domingo 26 de Julio · 11:00 HS · Gratis · Online</p>
-  <button class="btn-main reveal" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSePI6X7o15mhgznMYyWwyx-ZiSoTAAcA7jTjD4uPDJk3b4BpA/viewform?usp=dialog','_blank')" >Quiero anotarme al Taller →</button>
+  <button class="btn-main reveal" onclick="abrirModal()" >Quiero anotarme al Taller →</button>
 </section>
 
 <footer>
@@ -350,6 +350,26 @@ function abrirModal(){document.getElementById('overlay').classList.add('active')
 function cerrarModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
 function cerrarFuera(e){if(e.target===document.getElementById('overlay'))cerrarModal();}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarModal();});
+
+// Envía datos a Google Forms silenciosamente y redirige a gracias.html
+document.getElementById('form-reg').addEventListener('submit',function(e){
+  e.preventDefault();
+  var nombre = document.getElementById('nombre').value;
+  var email = document.getElementById('email').value;
+
+  // Campos del Google Form — entry IDs
+  var formData = new FormData();
+  formData.append('entry.23665686', nombre);   // campo nombre
+  formData.append('entry.1473832012', email);  // campo email
+
+  fetch('https://docs.google.com/forms/d/e/1FAIpQLSePI6X7o15mhgznMYyWwyx-ZiSoTAAcA7jTjD4uPDJk3b4BpA/formResponse', {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors'
+  }).finally(function(){
+    window.location.href = 'gracias.html';
+  });
+});
 document.getElementById('form-reg').addEventListener('submit',function(e){
   e.preventDefault();
   window.location.href='gracias.html';
