@@ -339,6 +339,20 @@ footer p{font-size:11px;color:rgba(255,255,255,0.28);line-height:1.6;}
         <label for="email">Tu email</label>
         <input type="email" id="email" name="email" placeholder="Ej: maria@gmail.com" required>
       </div>
+      <div class="form-group">
+        <label for="negocio">¿Qué tipo de negocio tenés?</label>
+        <input type="text" id="negocio" name="negocio" placeholder="Ej: Ropa, Gastronomía...">
+      </div>
+      <div class="form-group">
+        <label for="solucionar">¿Qué necesitás solucionar?</label>
+        <select id="solucionar" name="solucionar" style="width:100%;padding:13px 15px;border:1.5px solid #E8E3DC;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;color:#3D3D3D;outline:none;background:#FAFAF8;">
+          <option value="">Seleccioná una opción</option>
+          <option value="Precios">Precios</option>
+          <option value="Stock">Stock</option>
+          <option value="Administración">Administración</option>
+          <option value="Todo junto">Todo junto</option>
+        </select>
+      </div>
       <button type="submit" class="btn-form">Quiero inscribirme →</button>
       <p class="modal-nota">✔ Sin spam · Podés darte de baja cuando quieras</p>
     </form>
@@ -359,8 +373,12 @@ document.getElementById('form-reg').addEventListener('submit',function(e){
 
   // Campos del Google Form — entry IDs
   var formData = new FormData();
-  formData.append('entry.23665686', nombre);   // campo nombre
-  formData.append('entry.1473832012', email);  // campo email
+  var negocio = document.getElementById('negocio').value;
+  var solucionar = document.getElementById('solucionar').value;
+  formData.append('entry.23665686', nombre);       // nombre
+  formData.append('entry.1473832012', email);      // email
+  formData.append('entry.1283931535', negocio);    // tipo de negocio
+  formData.append('entry.1008284740', solucionar); // qué necesitás solucionar
 
   fetch('https://docs.google.com/forms/d/e/1FAIpQLSePI6X7o15mhgznMYyWwyx-ZiSoTAAcA7jTjD4uPDJk3b4BpA/formResponse', {
     method: 'POST',
