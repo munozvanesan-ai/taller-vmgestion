@@ -380,28 +380,30 @@ function cerrarModal(){document.getElementById('overlay').classList.remove('acti
 function cerrarFuera(e){if(e.target===document.getElementById('overlay'))cerrarModal();}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarModal();});
 
-// Envía datos a Google Forms silenciosamente y redirige a gracias.html
+// Envía datos a Google Forms con iframe invisible
 document.getElementById('form-reg').addEventListener('submit',function(e){
   e.preventDefault();
-  var nombre = document.getElementById('nombre').value;
-  var email = document.getElementById('email').value;
+  var nombre = encodeURIComponent(document.getElementById('nombre').value);
+  var email = encodeURIComponent(document.getElementById('email').value);
+  var negocio = encodeURIComponent(document.getElementById('negocio').value);
+  var solucionar = encodeURIComponent(document.getElementById('solucionar').value);
 
-  // Campos del Google Form — entry IDs
-  var formData = new FormData();
-  var negocio = document.getElementById('negocio').value;
-  var solucionar = document.getElementById('solucionar').value;
-  formData.append('entry.23665686', nombre);       // nombre
-  formData.append('entry.1473832012', email);      // email
-  formData.append('entry.1283931535', negocio);    // tipo de negocio
-  formData.append('entry.1008284740', solucionar); // qué necesitás solucionar
+  var url = 'https://docs.google.com/forms/d/e/1FAIpQLSePI6X7o15mhgznMYyWwyx-ZiSoTAAcA7jTjD4uPDJk3b4BpA/formResponse'
+    + '?entry.23665686=' + nombre
+    + '&entry.1473832012=' + email
+    + '&entry.1283931535=' + negocio
+    + '&entry.1008284740=' + solucionar
+    + '&submit=Submit';
 
-  fetch('https://docs.google.com/forms/d/e/1FAIpQLSePI6X7o15mhgznMYyWwyx-ZiSoTAAcA7jTjD4uPDJk3b4BpA/formResponse', {
-    method: 'POST',
-    body: formData,
-    mode: 'no-cors'
-  }).finally(function(){
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  iframe.name = 'hidden_iframe';
+  iframe.src = url;
+  document.body.appendChild(iframe);
+
+  setTimeout(function(){
     window.location.href = 'gracias.html';
-  });
+  }, 1000);
 });
 const obs=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
