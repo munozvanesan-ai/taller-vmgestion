@@ -151,9 +151,36 @@ input[type=range]:focus-visible{outline:2px solid var(--salmon);outline-offset:6
 .mensaje-body p{font-size:15px;line-height:1.75;color:var(--text);margin-bottom:12px;}
 .firma{font-family:'Playfair Display',serif;font-style:italic;font-size:22px;color:var(--salmon);margin-top:6px;}
 
-footer{background:#1A1A1A;padding:26px 24px;text-align:center;}
-footer .f-logo{font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--salmon);margin-bottom:6px;}
-footer p{font-size:11px;color:rgba(255,255,255,.35);line-height:1.6;}
+footer{background:var(--navy);padding:30px 24px;text-align:center;}
+footer .f-logo{height:40px;margin-bottom:10px;}
+footer .f-logo-fallback{font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--salmon);margin-bottom:6px;display:none;}
+footer p{font-size:11px;color:rgba(255,255,255,.5);line-height:1.6;}
+
+/* ── LECTURA MÁS CÓMODA (letras más grandes y más oscuras) ── */
+.calc-tag{max-width:380px;font-size:18px;padding:15px 28px;}
+.hero p,.calc-intro p,.calc-cierre p,.mensaje-body p{font-size:17px;}
+.paso{font-size:15px;}
+.cta-grupo-card > p{font-size:16px;color:rgba(255,255,255,.8);}
+.grupo-nota{font-size:13px;color:rgba(255,255,255,.6);}
+.step-title h3{font-size:21px;}
+.field label{font-size:16px;}
+.hint{font-size:14px;color:#5E5E5E;}
+.slider-labels{font-size:13px;color:#777;}
+.precio-box .lbl{font-size:15px;}
+.precio-box .sub{font-size:14px;color:#666;}
+.fila span:first-child{font-size:15px;color:rgba(255,255,255,.75);}
+.fila span:last-child{font-size:17px;}
+.alerta p{font-size:15px;}
+.stock-box .lbl{font-size:14px;}
+.stock-box .det{font-size:13px;color:#666;}
+footer p{font-size:13px;color:rgba(255,255,255,.65);}
+@media(max-width:600px){
+  .hero{padding-top:20px;}
+  .cta-grupo{padding:20px 16px;}
+  .calc-section{padding:20px 16px 12px;}
+  .calc-step{padding:22px 18px;}
+  .mensaje-section{padding:32px 16px 48px;}
+}
 
 @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
 </style>
@@ -302,7 +329,8 @@ footer p{font-size:11px;color:rgba(255,255,255,.35);line-height:1.6;}
 </div>
 
 <footer>
-  <div class="f-logo">Vm</div>
+  <img src="LOGO_SALMON.png" alt="VM Gestión Digital" class="f-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+  <div class="f-logo-fallback">Vm</div>
   <p>© 2026 Vanesa Muñoz — VM Gestión Digital · +54 9 11 5060-3576<br>Todos los derechos reservados.</p>
 </footer>
 
