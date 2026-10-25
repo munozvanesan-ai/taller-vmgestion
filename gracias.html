@@ -3,155 +3,290 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>¡Gracias! — VM Gestión Digital</title>
+<meta name="color-scheme" content="light">
+<title>¡Tu lugar está reservado! — VM Gestión Digital</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --salmon:#E8927A;--salmon-dark:#C9714F;--salmon-pale:#FDF0EC;
-  --navy:#1C3557;--cream:#FAFAF8;--dark:#1A1A1A;--text:#3D3D3D;--text-light:#888;--white:#ffffff;--radius:14px;
+  --salmon:#E8927A; --salmon-dark:#C9714F; --salmon-pale:#FDF0EC;
+  --navy:#1C3557; --navy-mid:#2A4A73;
+  --cream:#FAFAF8; --dark:#1A1A1A; --text:#3D3D3D; --text-light:#888;
+  --white:#fff; --whatsapp:#25D366; --whatsapp-dark:#1EBE5A;
+  --radius:14px;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);-webkit-font-smoothing:antialiased;}
 
-/* Header */
-.header{padding:32px 24px 0;text-align:center;}
-.header img{width:60px;height:auto;margin:0 auto;}
+/* ── HEADER ── */
+.header{padding:28px 24px 0;text-align:center;}
+.header img{height:44px;}
+.logo-fallback{font-family:'Playfair Display',serif;font-style:italic;font-size:26px;color:var(--salmon);display:none;}
 
-/* Hero */
-.hero{padding:48px 24px 0;text-align:center;max-width:580px;margin:0 auto;}
-.check-circle{width:64px;height:64px;background:var(--salmon-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;}
-.check-circle svg{width:28px;height:28px;color:var(--salmon);}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,6vw,42px);font-weight:900;color:var(--dark);line-height:1.15;margin-bottom:14px;}
-.hero h1 em{color:var(--salmon-dark);font-style:italic;}
-.hero p{font-size:16px;font-weight:300;color:var(--text-light);line-height:1.7;}
-.hero p strong{color:var(--text);font-weight:600;}
-
-/* Pasos */
-.pasos{display:flex;align-items:center;justify-content:center;gap:8px;margin:32px auto;max-width:520px;padding:0 24px;flex-wrap:wrap;}
-.paso{display:flex;align-items:center;gap:8px;background:var(--white);border-radius:100px;padding:10px 18px;box-shadow:0 2px 10px rgba(0,0,0,0.06);}
-.paso-num{width:22px;height:22px;background:var(--salmon);color:var(--white);border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.paso span{font-size:12px;font-weight:600;color:var(--navy);}
-.paso-ok .paso-num{background:#4CAF50;}
-.paso-ok span{color:#4CAF50;}
-.paso-sep{color:#ccc;font-size:18px;}
-
-/* Mensaje de Vanesa */
-.mensaje-section{max-width:560px;margin:0 auto;padding:0 24px 48px;}
-.mensaje-card{
-  background:var(--white);border-radius:20px;
-  overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.08);
+/* ── HERO ── */
+.hero{padding:32px 24px 8px;text-align:center;max-width:620px;margin:0 auto;}
+.check-circle{
+  width:64px;height:64px;border-radius:50%;background:var(--salmon);color:#fff;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 22px;
+  box-shadow:0 8px 28px rgba(232,146,122,.4);
 }
-.mensaje-top{
-  background:var(--salmon-pale);padding:32px 28px;
-  display:flex;align-items:center;gap:20px;
-}
-.mensaje-foto{
-  width:90px;height:90px;border-radius:50%;
-  object-fit:cover;object-position:center 15%;
-  border:3px solid var(--white);
-  box-shadow:0 4px 16px rgba(232,146,122,0.22);
-  flex-shrink:0;
-}
-.mensaje-top h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--navy);margin-bottom:4px;}
-.mensaje-top p{font-size:12px;color:var(--salmon-dark);font-weight:600;}
-.mensaje-body{padding:28px;}
-.mensaje-body p{font-size:15px;line-height:1.78;color:var(--text);margin-bottom:12px;}
-.mensaje-body p:last-child{margin-bottom:0;}
-.firma{font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:var(--salmon-dark);margin-top:16px;}
+.check-circle svg{width:30px;height:30px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,7vw,48px);font-weight:900;line-height:1.1;margin-bottom:14px;}
+.hero h1 em{color:var(--salmon);}
+.hero p{font-size:16px;font-weight:300;color:var(--text);line-height:1.7;}
+.hero p strong{font-weight:700;}
 
-/* CTA grupo */
-.cta-grupo{max-width:560px;margin:0 auto;padding:0 24px 80px;}
-.cta-grupo-card{background:var(--navy);border-radius:20px;padding:36px 28px;text-align:center;position:relative;overflow:hidden;}
-.cta-grupo-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(232,146,122,0.18) 0%,transparent 70%);}
-.cta-grupo-card h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--white);margin-bottom:10px;line-height:1.3;}
-.cta-grupo-card h2 em{color:#F2A99A;font-style:italic;}
-.cta-grupo-card p{font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:28px;line-height:1.6;}
+/* ── PASOS ── */
+.pasos{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:26px 24px 8px;}
+.paso{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--navy);}
+.paso-num{width:28px;height:28px;border-radius:50%;border:2px solid var(--salmon);color:var(--salmon);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+.paso-ok .paso-num{background:var(--salmon);color:#fff;}
+.paso-sep{color:#ccc;}
+.paso-off{opacity:.4;}
+
+/* ── CTA GRUPO ── */
+.cta-grupo{padding:28px 24px;max-width:620px;margin:0 auto;}
+.cta-grupo-card{background:var(--navy);border-radius:20px;padding:36px 28px;text-align:center;}
+.cta-grupo-card h2{font-family:'Playfair Display',serif;font-size:clamp(24px,5vw,32px);font-weight:900;color:#fff;line-height:1.2;margin-bottom:12px;}
+.cta-grupo-card h2 em{color:#F2A99A;}
+.cta-grupo-card > p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.65;margin-bottom:24px;}
 .btn-grupo{
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  background:#25D366;color:var(--white);
-  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;
-  padding:17px 32px;border-radius:100px;text-decoration:none;width:100%;
-  box-shadow:0 6px 24px rgba(37,211,102,0.35);
-  transition:transform .18s,box-shadow .18s;
-  animation:pulse-g 2.2s ease-in-out infinite;
+  background:var(--whatsapp);color:#fff;text-decoration:none;
+  font-size:16px;font-weight:700;padding:17px 34px;border-radius:100px;
+  width:100%;max-width:380px;box-shadow:0 6px 24px rgba(37,211,102,.35);
+  transition:transform .18s,background .18s;
 }
-.btn-grupo:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(37,211,102,0.50);}
-@keyframes pulse-g{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,0.35);}50%{box-shadow:0 10px 36px rgba(37,211,102,0.60);}}
-.btn-grupo svg{width:22px;height:22px;flex-shrink:0;}
-.grupo-nota{font-size:11px;color:rgba(255,255,255,0.3);margin-top:14px;}
+.btn-grupo:hover{background:var(--whatsapp-dark);transform:translateY(-2px);}
+.btn-grupo:focus-visible{outline:3px solid #fff;outline-offset:3px;}
+.btn-grupo svg{width:22px;height:22px;}
+.grupo-nota{font-size:12px;color:rgba(255,255,255,.4);margin-top:12px;}
 
-footer{background:#111;padding:28px 24px;text-align:center;}
-.footer-logo img{width:52px;height:auto;margin:0 auto 8px;opacity:0.8;}
-footer p{font-size:11px;color:rgba(255,255,255,0.28);line-height:1.6;}
+/* ── CALCULADORA (NUEVO) ── */
+.calc-section{padding:40px 24px 16px;max-width:620px;margin:0 auto;}
+.calc-intro{text-align:center;margin-bottom:26px;}
+.calc-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--salmon);color:#fff;
+  justify-content:center;width:100%;max-width:300px;
+  font-size:17px;font-weight:700;padding:13px 28px;border-radius:100px;margin-bottom:18px;
+  box-shadow:0 6px 22px rgba(232,146,122,.45);
+}
+.calc-tag span{font-size:20px;}
+.calc-intro h2{font-family:'Playfair Display',serif;font-size:clamp(26px,5.5vw,36px);font-weight:900;line-height:1.15;margin-bottom:12px;}
+.calc-intro p{font-size:15px;font-weight:300;color:var(--text);line-height:1.7;max-width:480px;margin:0 auto;}
 
-@keyframes fadeDown{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.calc{background:#fff;border-radius:20px;box-shadow:0 8px 40px rgba(28,53,87,.08);overflow:hidden;}
+.calc-step{padding:26px 26px;border-bottom:1px solid #F0EDE9;}
+.calc-step:last-child{border-bottom:none;}
+.step-title{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-title h3{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--navy);}
+
+.field{margin-bottom:18px;}
+.field:last-child{margin-bottom:0;}
+.field label{display:block;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.hint{font-size:12px;color:var(--text-light);margin-bottom:8px;line-height:1.5;}
+.input-wrap{position:relative;}
+.prefix{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-weight:700;color:var(--text-light);}
+.calc input[type=text],.calc input[type=number]{
+  width:100%;padding:13px 15px;border:1.5px solid #E8E3DC;border-radius:10px;
+  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;color:var(--dark);
+  background:var(--cream);outline:none;transition:border-color .18s,background .18s;
+  -moz-appearance:textfield;
+}
+.calc input.con-prefijo{padding-left:32px;}
+.calc input:focus{border-color:var(--salmon);background:#fff;}
+.calc input::placeholder{color:#c8c8c8;}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;}
+
+.margen-val{color:var(--salmon);font-weight:900;}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;background:#F0EDE9;border-radius:3px;outline:none;margin-top:8px;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--salmon);border:3px solid #fff;box-shadow:0 2px 8px rgba(232,146,122,.5);cursor:pointer;}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--salmon);border:3px solid #fff;box-shadow:0 2px 8px rgba(232,146,122,.5);cursor:pointer;}
+input[type=range]:focus-visible{outline:2px solid var(--salmon);outline-offset:6px;}
+.slider-labels{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:#aaa;}
+
+/* Resultado principal */
+.precio-box{background:var(--salmon-pale);border-radius:var(--radius);padding:24px;text-align:center;margin-bottom:14px;}
+.precio-box .lbl{font-size:13px;font-weight:600;color:var(--salmon-dark);margin-bottom:6px;}
+.precio-box .val{font-family:'Playfair Display',serif;font-size:clamp(40px,10vw,54px);font-weight:900;color:var(--navy);line-height:1;}
+.precio-box .sub{font-size:12px;color:var(--text-light);margin-top:8px;}
+
+.desglose{background:var(--navy);border-radius:var(--radius);padding:6px 22px;}
+.fila{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.08);}
+.fila:last-child{border-bottom:none;}
+.fila span:first-child{font-size:13px;color:rgba(255,255,255,.6);}
+.fila span:last-child{font-size:16px;font-weight:700;color:#fff;}
+.fila .salmon{color:#F2A99A !important;}
+
+.alerta{display:none;margin-top:14px;border-left:3px solid var(--salmon);background:#FFF8F5;border-radius:0 10px 10px 0;padding:14px 16px;}
+.alerta.show{display:block;}
+.alerta p{font-size:13px;color:var(--text);line-height:1.6;}
+.alerta strong{color:var(--salmon-dark);}
+
+/* Stock */
+.stock-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+@media(max-width:480px){.stock-grid{grid-template-columns:1fr;}}
+.stock-box{background:var(--cream);border-radius:12px;padding:16px 18px;border:1px solid #F0EDE9;}
+.stock-box.destacado{background:var(--salmon-pale);border-color:transparent;}
+.stock-box .lbl{font-size:12px;font-weight:600;color:var(--navy);}
+.stock-box .det{font-size:11px;color:var(--text-light);margin-top:2px;}
+.stock-box .val{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--navy);margin-top:8px;}
+.stock-box.destacado .val{color:var(--salmon-dark);}
+
+.calc-cierre{text-align:center;padding:28px 24px 8px;max-width:520px;margin:0 auto;}
+.calc-cierre p{font-size:15px;color:var(--text);line-height:1.65;margin-bottom:18px;}
+.calc-cierre p strong{color:var(--navy);}
+.btn-grupo.chico{font-size:15px;padding:14px 28px;max-width:320px;}
+
+/* ── MENSAJE VANESA ── */
+.mensaje-section{padding:40px 24px 56px;max-width:620px;margin:0 auto;}
+.mensaje-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.06);}
+.mensaje-top{background:var(--salmon-pale);padding:24px 26px;display:flex;align-items:center;gap:16px;}
+.mensaje-foto{width:68px;height:68px;border-radius:50%;object-fit:cover;border:3px solid #fff;flex-shrink:0;}
+.foto-fallback{width:68px;height:68px;border-radius:50%;background:var(--salmon);color:#fff;display:none;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:26px;font-weight:900;border:3px solid #fff;flex-shrink:0;}
+.mensaje-top h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);}
+.mensaje-top p{font-size:12px;color:var(--salmon-dark);font-weight:600;}
+.mensaje-body{padding:24px 26px;}
+.mensaje-body p{font-size:15px;line-height:1.75;color:var(--text);margin-bottom:12px;}
+.firma{font-family:'Playfair Display',serif;font-style:italic;font-size:22px;color:var(--salmon);margin-top:6px;}
+
+footer{background:#1A1A1A;padding:26px 24px;text-align:center;}
+footer .f-logo{font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--salmon);margin-bottom:6px;}
+footer p{font-size:11px;color:rgba(255,255,255,.35);line-height:1.6;}
+
+@media (prefers-reduced-motion:reduce){*{transition:none !important;}}
 </style>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1414165786785634');
-fbq('track', 'Lead');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1414165786785634&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
 </head>
 <body>
 
+<!-- ══ HEADER ══ -->
 <div class="header">
-  <img src="LOGO_SALMON.png" alt="VM Gestión Digital">
+  <img src="LOGO_SALMON.png" alt="VM Gestión Digital" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+  <div class="logo-fallback">Vm</div>
 </div>
 
+<!-- ══ HERO ══ -->
 <div class="hero">
   <div class="check-circle">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="4,12 9,17 20,6"/>
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,12 9,17 20,6"/></svg>
   </div>
   <h1>¡Tu lugar está <em>reservado!</em></h1>
   <p>Solo falta un paso más: <strong>unite al grupo de WhatsApp del Taller</strong> para recibir el link y los recordatorios antes del evento.</p>
 </div>
 
-<!-- Pasos -->
+<!-- ══ PASOS ══ -->
 <div class="pasos">
   <div class="paso paso-ok"><div class="paso-num">✓</div><span>Te registraste</span></div>
   <div class="paso-sep">→</div>
   <div class="paso"><div class="paso-num">2</div><span>Unite al grupo</span></div>
   <div class="paso-sep">→</div>
-  <div class="paso" style="opacity:0.4;"><div class="paso-num">3</div><span>¡Nos vemos!</span></div>
+  <div class="paso paso-off"><div class="paso-num">3</div><span>¡Nos vemos!</span></div>
 </div>
 
-<!-- Mensaje de Vanesa -->
-<!-- CTA Grupo -->
-<div class="cta-grupo">
+<!-- ══ CTA GRUPO (sigue primero) ══ -->
+<div class="cta-grupo" id="grupo">
   <div class="cta-grupo-card">
     <h2>Ahora unite al<br><em>Grupo de WhatsApp</em></h2>
     <p>Ahí te mandamos el link del taller, los recordatorios y todo lo que necesitás saber antes del domingo.</p>
-
-    <!-- ✏️ CAMBIAR EL HREF ACA cada webinar con el link del grupo nuevo -->
-    <a class="btn-grupo" href="https://chat.whatsapp.com/Ki7gr2oeHID42P71Sps5sR?s=cl&p=a&mlu=4&ilr=4">
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-      </svg>
+    <!-- ✏️ CAMBIAR EL HREF ACA cada webinar con el link del grupo nuevo (es el ÚNICO lugar, el botón de abajo lo copia solo) -->
+    <a class="btn-grupo" id="btn-grupo" href="LINK_DEL_GRUPO_ACA" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Unirme al Grupo del Taller
     </a>
     <p class="grupo-nota">Al hacer clic se abre WhatsApp con el link directo al grupo</p>
   </div>
 </div>
 
+<!-- ══ CALCULADORA (NUEVO) ══ -->
+<section class="calc-section">
+  <div class="calc-intro">
+    <span class="calc-tag"><span>🎁</span> Regalo para vos</span>
+    <h2>Mientras llega el domingo,<br>revisemos cómo calcular<br>tu precio correcto</h2>
+    <p>Probá esta calculadora con uno de tus productos y andá practicando antes del taller.</p>
+  </div>
+
+  <div class="calc">
+    <!-- Paso 1 -->
+    <div class="calc-step">
+      <div class="step-title"><div class="step-num">1</div><h3>Tu producto</h3></div>
+      <div class="field">
+        <label for="nombre">Nombre del producto (opcional)</label>
+        <input type="text" id="nombre" placeholder="Ej: Remera básica, Hamburguesa clásica…" oninput="calcular()">
+      </div>
+      <div class="field">
+        <label for="costo">¿Cuánto te costó este producto?</label>
+        <div class="hint">Incluí materia prima, insumos y packaging: todo lo que pusiste para tenerlo.</div>
+        <div class="input-wrap">
+          <span class="prefix">$</span>
+          <input type="number" id="costo" class="con-prefijo" placeholder="0" inputmode="decimal" oninput="calcular()">
+        </div>
+      </div>
+      <div class="field">
+        <label for="margen">¿Cuánto margen querés ganar? <span class="margen-val" id="margen-display">40%</span></label>
+        <div class="hint">El margen es lo que te queda de cada venta, como % del precio de venta.</div>
+        <input type="range" id="margen" min="10" max="80" value="40" oninput="calcular()">
+        <div class="slider-labels"><span>10% bajo</span><span>40% recomendado</span><span>80% alto</span></div>
+      </div>
+    </div>
+
+    <!-- Paso 2 -->
+    <div class="calc-step">
+      <div class="step-title"><div class="step-num">2</div><h3>Tu precio correcto</h3></div>
+      <div class="precio-box">
+        <div class="lbl" id="precio-lbl">Tu precio de venta ideal</div>
+        <div class="val" id="precio-venta">$0</div>
+        <div class="sub" id="precio-sub">Completá el costo para ver el resultado</div>
+      </div>
+      <div class="desglose">
+        <div class="fila"><span>Costo del producto</span><span id="res-costo">$0</span></div>
+        <div class="fila"><span>Lo que te queda por venta</span><span class="salmon" id="res-ganancia">$0</span></div>
+        <div class="fila"><span>Margen sobre el precio</span><span id="res-margen">0%</span></div>
+        <div class="fila"><span>Markup (multiplicador)</span><span id="res-markup">×0</span></div>
+      </div>
+      <div class="alerta" id="alerta-error">
+        <p>⚠️ <strong>El error más común:</strong> multiplicar el costo por 2 y creer que ganás el 100%. Si tu costo es <span id="costo-ejemplo">$0</span> y vendés a <span id="venta-x2">$0</span>, tu margen real es solo el 50%, y eso es antes de pagar los gastos del negocio.</p>
+      </div>
+    </div>
+
+    <!-- Paso 3 -->
+    <div class="calc-step">
+      <div class="step-title"><div class="step-num">3</div><h3>Tu stock valorizado</h3></div>
+      <div class="field">
+        <label for="stock">¿Cuántas unidades tenés en stock?</label>
+        <input type="number" id="stock" placeholder="0" inputmode="numeric" oninput="calcular()">
+      </div>
+      <div class="stock-grid">
+        <div class="stock-box">
+          <div class="lbl">Al costo</div>
+          <div class="det">Lo que pusiste de dinero</div>
+          <div class="val" id="stock-costo">$0</div>
+        </div>
+        <div class="stock-box destacado">
+          <div class="lbl">Al precio de venta</div>
+          <div class="det">Lo que podés facturar si vendés todo</div>
+          <div class="val" id="stock-venta">$0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="calc-cierre">
+    <p>Esto es el análisis de <strong>un solo producto</strong>.<br>En el taller te muestro cómo aplicarlo a todo tu negocio, en vivo y con ejemplos de un negocio real.</p>
+    <!-- Este botón toma solo el link del botón de arriba. NO hace falta cambiarlo. -->
+    <a class="btn-grupo chico" id="btn-grupo-2" href="#grupo" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Unirme al Grupo del Taller
+    </a>
+  </div>
+</section>
+
+<!-- ══ MENSAJE DE VANESA ══ -->
 <div class="mensaje-section">
   <div class="mensaje-card">
     <div class="mensaje-top">
-      <img src="Foto_Vane_web.jpeg.jpeg" alt="Vanesa Muñoz" class="mensaje-foto">
+      <img src="Foto_Vane_web_atardecer.jpeg" alt="Vanesa Muñoz" class="mensaje-foto" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="foto-fallback">V</div>
       <div>
         <h3>Vanesa Muñoz</h3>
         <p>VM Gestión Digital</p>
@@ -160,16 +295,60 @@ src="https://www.facebook.com/tr?id=1414165786785634&ev=PageView&noscript=1"
     <div class="mensaje-body">
       <p>¡Gracias por participar de este taller!</p>
       <p>Vamos a dar juntos el primer paso para ordenar tu negocio. Te espero en clase lista para acompañarte en este proceso.</p>
-      <p>Recordá unirte al grupo de WhatsApp — ahí te voy a mandar toda la información que necesitás antes del domingo.</p>
+      <p>Recordá unirte al grupo de WhatsApp: ahí te voy a mandar toda la información que necesitás antes del domingo.</p>
       <div class="firma">Vane 🧡</div>
     </div>
   </div>
 </div>
 
 <footer>
-  <div class="footer-logo"><img src="LOGO_SALMON.png" alt="VM Gestión Digital"></div>
-  <p>© 2025 Vanesa Muñoz — VM Gestión Digital · Consultoría para Negocios<br>Todos los derechos reservados.</p>
+  <div class="f-logo">Vm</div>
+  <p>© 2026 Vanesa Muñoz — VM Gestión Digital · +54 9 11 5060-3576<br>Todos los derechos reservados.</p>
 </footer>
 
+<script>
+// El segundo botón usa el mismo link que el botón principal
+document.getElementById('btn-grupo-2').href = document.getElementById('btn-grupo').href;
+
+function fmt(n){ return '$' + Math.round(n).toLocaleString('es-AR'); }
+function set(id, txt){ document.getElementById(id).textContent = txt; }
+
+function calcular(){
+  const nombre = document.getElementById('nombre').value.trim();
+  const costo  = parseFloat(document.getElementById('costo').value) || 0;
+  const pct    = parseInt(document.getElementById('margen').value, 10);
+  const margen = pct / 100;
+  const stock  = parseFloat(document.getElementById('stock').value) || 0;
+
+  set('margen-display', pct + '%');
+  set('precio-lbl', nombre ? 'Precio ideal de ' + nombre : 'Tu precio de venta ideal');
+
+  if (costo <= 0){
+    ['precio-venta','res-costo','res-ganancia','stock-costo','stock-venta'].forEach(id => set(id,'$0'));
+    set('precio-sub','Completá el costo para ver el resultado');
+    set('res-margen','0%'); set('res-markup','×0');
+    document.getElementById('alerta-error').classList.remove('show');
+    return;
+  }
+
+  // Fórmula: precio = costo / (1 - margen)
+  const precio   = costo / (1 - margen);
+  const ganancia = precio - costo;
+  const markup   = precio / costo;
+
+  set('precio-venta', fmt(precio));
+  set('precio-sub', 'Con un costo de ' + fmt(costo) + ' y margen del ' + pct + '%');
+  set('res-costo', fmt(costo));
+  set('res-ganancia', fmt(ganancia));
+  set('res-margen', pct + '%');
+  set('res-markup', '×' + markup.toFixed(2).replace('.', ','));
+  set('stock-costo', fmt(costo * stock));
+  set('stock-venta', fmt(precio * stock));
+
+  set('costo-ejemplo', fmt(costo));
+  set('venta-x2', fmt(costo * 2));
+  document.getElementById('alerta-error').classList.add('show');
+}
+</script>
 </body>
 </html>
