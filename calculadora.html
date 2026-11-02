@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Calculadora de Precios — VM Gestión Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --salmon:#E8927A; --salmon-dark:#C9714F; --salmon-pale:#FDF0EC;
+  --navy:#1C3557; --navy-mid:#2A4A73;
+  --cream:#FAFAF8; --dark:#1A1A1A; --text:#3D3D3D; --text-light:#888;
+  --white:#fff; --whatsapp:#25D366; --whatsapp-dark:#1EBE5A;
+  --radius:14px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);-webkit-font-smoothing:antialiased;}
+
+/* ── HEADER ── */
+.header{padding:28px 24px 0;text-align:center;}
+.header img{height:44px;}
+.logo-fallback{font-family:'Playfair Display',serif;font-style:italic;font-size:26px;color:var(--salmon);display:none;}
+
+/* ── CALCULADORA ── */
+.calc-section{padding:30px 24px 16px;max-width:620px;margin:0 auto;}
+.calc-intro{text-align:center;margin-bottom:26px;}
+.calc-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--salmon);color:#fff;
+  justify-content:center;width:100%;max-width:300px;
+  font-size:17px;font-weight:700;padding:13px 28px;border-radius:100px;margin-bottom:18px;
+  box-shadow:0 6px 22px rgba(232,146,122,.45);
+}
+.calc-tag span{font-size:20px;}
+.calc-intro h2,.calc-h1{font-family:'Playfair Display',serif;font-size:clamp(26px,5.5vw,36px);font-weight:900;line-height:1.15;margin-bottom:12px;}
+.calc-intro p{font-size:15px;font-weight:300;color:var(--text);line-height:1.7;max-width:480px;margin:0 auto;}
+
+.calc{background:#fff;border-radius:20px;box-shadow:0 8px 40px rgba(28,53,87,.08);overflow:hidden;}
+.calc-step{padding:26px 26px;border-bottom:1px solid #F0EDE9;}
+.calc-step:last-child{border-bottom:none;}
+.step-title{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-title h3{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--navy);}
+
+.field{margin-bottom:18px;}
+.field:last-child{margin-bottom:0;}
+.field label{display:block;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.hint{font-size:12px;color:var(--text-light);margin-bottom:8px;line-height:1.5;}
+.input-wrap{position:relative;}
+.prefix{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-weight:700;color:var(--text-light);}
+.calc input[type=text],.calc input[type=number]{
+  width:100%;padding:13px 15px;border:1.5px solid #E8E3DC;border-radius:10px;
+  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;color:var(--dark);
+  background:var(--cream);outline:none;transition:border-color .18s,background .18s;
+  -moz-appearance:textfield;
+}
+.calc input.con-prefijo{padding-left:32px;}
+.calc input:focus{border-color:var(--salmon);background:#fff;}
+.calc input::placeholder{color:#c8c8c8;}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;}
+
+.margen-val{color:var(--salmon);font-weight:900;}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;background:#F0EDE9;border-radius:3px;outline:none;margin-top:8px;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--salmon);border:3px solid #fff;box-shadow:0 2px 8px rgba(232,146,122,.5);cursor:pointer;}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--salmon);border:3px solid #fff;box-shadow:0 2px 8px rgba(232,146,122,.5);cursor:pointer;}
+input[type=range]:focus-visible{outline:2px solid var(--salmon);outline-offset:6px;}
+.slider-labels{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:#aaa;}
+
+/* Resultado principal */
+.precio-box{background:var(--salmon-pale);border-radius:var(--radius);padding:24px;text-align:center;margin-bottom:14px;}
+.precio-box .lbl{font-size:13px;font-weight:600;color:var(--salmon-dark);margin-bottom:6px;}
+.precio-box .val{font-family:'Playfair Display',serif;font-size:clamp(40px,10vw,54px);font-weight:900;color:var(--navy);line-height:1;}
+.precio-box .sub{font-size:12px;color:var(--text-light);margin-top:8px;}
+
+.desglose{background:var(--navy);border-radius:var(--radius);padding:6px 22px;}
+.fila{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.08);}
+.fila:last-child{border-bottom:none;}
+.fila span:first-child{font-size:13px;color:rgba(255,255,255,.6);}
+.fila span:last-child{font-size:16px;font-weight:700;color:#fff;}
+.fila .salmon{color:#F2A99A !important;}
+
+.alerta{display:none;margin-top:14px;border-left:3px solid var(--salmon);background:#FFF8F5;border-radius:0 10px 10px 0;padding:14px 16px;}
+.alerta.show{display:block;}
+.alerta p{font-size:13px;color:var(--text);line-height:1.6;}
+.alerta strong{color:var(--salmon-dark);}
+
+/* Stock */
+.stock-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+@media(max-width:480px){.stock-grid{grid-template-columns:1fr;}}
+.stock-box{background:var(--cream);border-radius:12px;padding:16px 18px;border:1px solid #F0EDE9;}
+.stock-box.destacado{background:var(--salmon-pale);border-color:transparent;}
+.stock-box .lbl{font-size:12px;font-weight:600;color:var(--navy);}
+.stock-box .det{font-size:11px;color:var(--text-light);margin-top:2px;}
+.stock-box .val{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--navy);margin-top:8px;}
+.stock-box.destacado .val{color:var(--salmon-dark);}
+
+.calc-cierre{text-align:center;padding:28px 24px 48px;max-width:520px;margin:0 auto;}
+.calc-cierre p{font-size:15px;color:var(--text);line-height:1.65;margin-bottom:18px;}
+.calc-cierre p strong{color:var(--navy);}
+.nos-vemos{font-family:'Playfair Display',serif;font-style:italic;font-size:24px !important;color:var(--salmon) !important;}
+
+footer{background:var(--navy);padding:30px 24px;text-align:center;}
+footer .f-logo{height:40px;margin-bottom:10px;}
+footer .f-logo-fallback{font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--salmon);margin-bottom:6px;display:none;}
+footer p{font-size:11px;color:rgba(255,255,255,.5);line-height:1.6;}
+
+/* ── LECTURA MÁS CÓMODA (letras más grandes y más oscuras) ── */
+.calc-tag{max-width:380px;font-size:18px;padding:15px 28px;}
+.calc-intro p,.calc-cierre p{font-size:17px;}
+.step-title h3{font-size:21px;}
+.field label{font-size:16px;}
+.hint{font-size:14px;color:#5E5E5E;}
+.slider-labels{font-size:13px;color:#777;}
+.precio-box .lbl{font-size:15px;}
+.precio-box .sub{font-size:14px;color:#666;}
+.fila span:first-child{font-size:15px;color:rgba(255,255,255,.75);}
+.fila span:last-child{font-size:17px;}
+.alerta p{font-size:15px;}
+.stock-box .lbl{font-size:14px;}
+.stock-box .det{font-size:13px;color:#666;}
+footer p{font-size:13px;color:rgba(255,255,255,.65);}
+@media(max-width:600px){
+  .calc-section{padding:20px 16px 12px;}
+  .calc-step{padding:22px 18px;}
+}
+
+@media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+<!-- Meta Pixel Code (NO BORRAR) -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1414165786785634');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1414165786785634&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<div class="header">
+  <img src="LOGO_SALMON.png" alt="VM Gestión Digital" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+  <div class="logo-fallback">Vm</div>
+</div>
+
+<!-- ══ CALCULADORA ══ -->
+<section class="calc-section">
+  <div class="calc-intro">
+    <span class="calc-tag"><span>🎁</span> Tu regalo del taller</span>
+    <h1 class="calc-h1">Calculadora de Precios</h1>
+    <p>Elegí uno de tus productos y descubrí en 1 minuto cuál es tu precio correcto.</p>
+  </div>
+
+  <div class="calc">
+    <!-- Paso 1 -->
+    <div class="calc-step">
+      <div class="step-title"><div class="step-num">1</div><h3>Tu producto</h3></div>
+      <div class="field">
+        <label for="nombre">Nombre del producto (opcional)</label>
+        <input type="text" id="nombre" placeholder="Ej: Remera básica, Hamburguesa clásica…" oninput="calcular()">
+      </div>
+      <div class="field">
+        <label for="costo">¿Cuánto te costó este producto?</label>
+        <div class="hint">Incluí materia prima, insumos y packaging: todo lo que pusiste para tenerlo.</div>
+        <div class="input-wrap">
+          <span class="prefix">$</span>
+          <input type="number" id="costo" class="con-prefijo" placeholder="0" inputmode="decimal" oninput="calcular()">
+        </div>
+      </div>
+      <div class="field">
+        <label for="margen">¿Cuánto margen querés ganar? <span class="margen-val" id="margen-display">40%</span></label>
+        <div class="hint">El margen es lo que te queda de cada venta, como % del precio de venta.</div>
+        <input type="range" id="margen" min="10" max="80" value="40" oninput="calcular()">
+        <div class="slider-labels"><span>10% bajo</span><span>40% recomendado</span><span>80% alto</span></div>
+      </div>
+    </div>
+
+    <!-- Paso 2 -->
+    <div class="calc-step">
+      <div class="step-title"><div class="step-num">2</div><h3>Tu precio correcto</h3></div>
+      <div class="precio-box">
+        <div class="lbl" id="precio-lbl">Tu precio de venta ideal</div>
+        <div class="val" id="precio-venta">$0</div>
+        <div class="sub" id="precio-sub">Completá el costo para ver el resultado</div>
+      </div>
+      <div class="desglose">
+        <div class="fila"><span>Costo del producto</span><span id="res-costo">$0</span></div>
+        <div class="fila"><span>Lo que te queda por venta</span><span class="salmon" id="res-ganancia">$0</span></div>
+        <div class="fila"><span>Margen sobre el precio</span><span id="res-margen">0%</span></div>
+        <div class="fila"><span>Markup (multiplicador)</span><span id="res-markup">×0</span></div>
+      </div>
+      <div class="alerta" id="alerta-error">
+        <p>⚠️ <strong>El error más común:</strong> multiplicar el costo por 2 y creer que ganás el 100%. Si tu costo es <span id="costo-ejemplo">$0</span> y vendés a <span id="venta-x2">$0</span>, tu margen real es solo el 50%, y eso es antes de pagar los gastos del negocio.</p>
+      </div>
+    </div>
+
+    <!-- Paso 3 -->
+    <div class="calc-step">
+      <div class="step-title"><div class="step-num">3</div><h3>Tu stock valorizado</h3></div>
+      <div class="field">
+        <label for="stock">¿Cuántas unidades tenés en stock?</label>
+        <input type="number" id="stock" placeholder="0" inputmode="numeric" oninput="calcular()">
+      </div>
+      <div class="stock-grid">
+        <div class="stock-box">
+          <div class="lbl">Al costo</div>
+          <div class="det">Lo que pusiste de dinero</div>
+          <div class="val" id="stock-costo">$0</div>
+        </div>
+        <div class="stock-box destacado">
+          <div class="lbl">Al precio de venta</div>
+          <div class="det">Lo que podés facturar si vendés todo</div>
+          <div class="val" id="stock-venta">$0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="calc-cierre">
+    <p>Esto es el análisis de <strong>un solo producto</strong>.<br>En el taller te muestro cómo aplicarlo a todo tu negocio, en vivo y con ejemplos de un negocio real.</p>
+    <p class="nos-vemos">¡Nos vemos el domingo! 🧡</p>
+  </div>
+</section>
+
+<footer>
+  <img src="LOGO_SALMON.png" alt="VM Gestión Digital" class="f-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+  <div class="f-logo-fallback">Vm</div>
+  <p>© 2026 Vanesa Muñoz — VM Gestión Digital · +54 9 11 5060-3576<br>Todos los derechos reservados.</p>
+</footer>
+
+<script>
+// Avisa a Meta una sola vez cuando alguien usa la calculadora
+let usoAvisado = false;
+
+function fmt(n){ return '$' + Math.round(n).toLocaleString('es-AR'); }
+function set(id, txt){ document.getElementById(id).textContent = txt; }
+
+function calcular(){
+  const nombre = document.getElementById('nombre').value.trim();
+  const costo  = parseFloat(document.getElementById('costo').value) || 0;
+  const pct    = parseInt(document.getElementById('margen').value, 10);
+  const margen = pct / 100;
+  const stock  = parseFloat(document.getElementById('stock').value) || 0;
+
+  set('margen-display', pct + '%');
+  set('precio-lbl', nombre ? 'Precio ideal de ' + nombre : 'Tu precio de venta ideal');
+
+  if (costo <= 0){
+    ['precio-venta','res-costo','res-ganancia','stock-costo','stock-venta'].forEach(id => set(id,'$0'));
+    set('precio-sub','Completá el costo para ver el resultado');
+    set('res-margen','0%'); set('res-markup','×0');
+    document.getElementById('alerta-error').classList.remove('show');
+    return;
+  }
+
+  if (!usoAvisado && window.fbq){ fbq('trackCustom','UsoCalculadora'); usoAvisado = true; }
+
+  // Fórmula: precio = costo / (1 - margen)
+  const precio   = costo / (1 - margen);
+  const ganancia = precio - costo;
+  const markup   = precio / costo;
+
+  set('precio-venta', fmt(precio));
+  set('precio-sub', 'Con un costo de ' + fmt(costo) + ' y margen del ' + pct + '%');
+  set('res-costo', fmt(costo));
+  set('res-ganancia', fmt(ganancia));
+  set('res-margen', pct + '%');
+  set('res-markup', '×' + markup.toFixed(2).replace('.', ','));
+  set('stock-costo', fmt(costo * stock));
+  set('stock-venta', fmt(precio * stock));
+
+  set('costo-ejemplo', fmt(costo));
+  set('venta-x2', fmt(costo * 2));
+  document.getElementById('alerta-error').classList.add('show');
+}
+</script>
+</body>
+</html>
