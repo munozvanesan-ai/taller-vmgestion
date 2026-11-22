@@ -383,10 +383,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarModal();});
 // Envía datos a Google Forms con iframe invisible
 document.getElementById('form-reg').addEventListener('submit',function(e){
   e.preventDefault();
-
-  // Meta Pixel: evento Cliente potencial (Lead) al enviar el formulario
-  if (typeof fbq === 'function') { fbq('track', 'Lead', {content_name: 'Taller Gratuito'}); }
-
   var nombre = encodeURIComponent(document.getElementById('nombre').value);
   var email = encodeURIComponent(document.getElementById('email').value);
   var negocio = encodeURIComponent(document.getElementById('negocio').value);
